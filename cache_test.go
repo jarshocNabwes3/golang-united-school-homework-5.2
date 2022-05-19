@@ -28,3 +28,15 @@ func TestPutGet(t *testing.T) {
 	testGetKeyValue(t, cache, `ijkl`, `qrst`)
 
 }
+
+func TestKeys(t *testing.T) {
+	cache := NewCache()
+
+	cache.Put(`abcd`, `efgh`)
+	cache.Put(`ijkl`, `mnop`)
+	cache.Put(`ijkl`, `qrst`)
+
+	keys := cache.Keys()
+	assert.DeepEqual(t, keys, []string{`abcd`, `ijkl`})
+
+}
