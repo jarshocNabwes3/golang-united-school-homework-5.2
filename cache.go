@@ -7,15 +7,19 @@ type Cache struct {
 }
 
 func NewCache() Cache {
-	return Cache{}
+	cache := Cache{}
+	cache.keys = make(map[string]string)
+	return cache
 }
 
 func (cache Cache) Get(key string) (value string, ok bool) {
+	value, ok = cache.keys[key]
 
 	return
 }
 
 func (cache Cache) Put(key, value string) {
+	cache.keys[key] = value
 }
 
 func (cache Cache) Keys() (keys []string) {
