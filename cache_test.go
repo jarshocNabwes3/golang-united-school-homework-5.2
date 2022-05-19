@@ -15,6 +15,10 @@ func testGetKeyValue(t *testing.T, cache Cache, key, valueExpected string) {
 func TestNewCache(t *testing.T) {
 	cache := NewCache()
 	assert.DeepEqual(t, cache.keys == nil, false)
+}
+
+func TestPutGet(t *testing.T) {
+	cache := NewCache()
 
 	cache.Put(`abcd`, `efgh`)
 	testGetKeyValue(t, cache, `abcd`, `efgh`)
