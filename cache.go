@@ -9,15 +9,17 @@ func NewCache() Cache {
 	return Cache{}
 }
 
-func (receiver) Get(key string) (string, bool) {
+func (cache Cache) Get(key string) (value string, ok bool) {
 
+	return
 }
 
-func (receiver) Put(key, value string) {
+func (cache Cache) Put(key, value string) {
 }
 
-func (receiver) Keys() []string {
+func (cache Cache) Keys() (keys []string) {
+	return
 }
 
-func (receiver) PutTill(key, value string, deadline time.Time) {
+func (cache Cache) PutTill(key, value string, deadline time.Time) {
 }
