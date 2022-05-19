@@ -3,6 +3,7 @@ package cache
 import "time"
 
 type Cache struct {
+	keys map[string]string
 }
 
 func NewCache() Cache {
