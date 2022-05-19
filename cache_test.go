@@ -6,20 +6,21 @@ import (
 	"gotest.tools/assert"
 )
 
+func testGetKeyValue(t *testing.T, cache Cache, key, valueExpected string) {
+	value, ok := cache.Get(key)
+	assert.Assert(t, ok, `Error to Get() value by '%v' key`, key)
+	assert.Equal(t, value, valueExpected, `Unequal '%v' value: '%v' differs from '%v' `, key, value, valueExpected)
+}
+
 func TestNewCache(t *testing.T) {
 	cache := NewCache()
-	m := make(map[string]string)
-	assert.DeepEqual(t, m, cache.keys)
-	cache.Put(`abcd`, `efgh`)
+	assert.DeepEqual(t, cache.keys == nil, false)
 
-	value, ok := cache.Get(`abcd`)
-	assert.Assert(t, ok, `Error to Get() value by 'abcd' key`)
-	assert.Equal(t, value, `efgh`, `Unequal '%v' value for 'abcd' key`, value)
+	cache.Put(`abcd`, `efgh`)
+	testGetKeyValue(t, cache, `abcd`, `efgh`)
 
 	cache.Put(`ijkl`, `mnop`)
 	cache.Put(`ijkl`, `qrst`)
+	testGetKeyValue(t, cache, `ijkl`, `qrst`)
 
-	value, ok = cache.Get(`ijkl`)
-	assert.Assert(t, ok, `Error to Get() value by 'ijkl' key`)
-	assert.Equal(t, value, `qrst`, `Unequal '%v' value for 'qrst' key`, value)
 }
