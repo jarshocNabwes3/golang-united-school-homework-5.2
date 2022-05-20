@@ -22,7 +22,12 @@ func (cache Cache) Put(key, value string) {
 	cache.keys[key] = value
 }
 
-func (cache Cache) Keys() (keys []string) {
+func (cache Cache) Keys() (keysArr []string) {
+
+	for key := range cache.keys {
+		keysArr = append(keysArr, key)
+	}
+
 	return
 }
 
