@@ -31,5 +31,15 @@ func (cache Cache) Keys() (keysArr []string) {
 	return
 }
 
+func (cache Cache) removeKeyByDeadline(key string, deadline time.Time) {
+	duration := time.Until(deadline)
+	time.Sleep(duration)
+
+	delete(cache.keys, key)
+}
+
 func (cache Cache) PutTill(key, value string, deadline time.Time) {
+	cache.Put(key, value)
+
+	go cache.removeKeyByDeadline(key, deadline)
 }
