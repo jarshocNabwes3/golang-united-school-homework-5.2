@@ -2,6 +2,7 @@ package cache
 
 import (
 	"testing"
+	"time"
 
 	"gotest.tools/assert"
 )
@@ -39,4 +40,17 @@ func TestKeys(t *testing.T) {
 	keys := cache.Keys()
 	assert.DeepEqual(t, keys, []string{`abcd`, `ijkl`})
 
+}
+
+func TestPutTill(t *testing.T) {
+	cache := NewCache()
+	cache.PutTill(`abcd`, `efgh`, time.Now().Add(200*time.Millisecond))
+	testGetKeyValue(t, cache, `abcd`, `efgh`)
+	time.Sleep(100 * time.Millisecond)
+	testGetKeyValue(t, cache, `abcd`, `efgh`)
+
+	time.Sleep(200 * time.Millisecond)
+
+	_, ok := cache.Get(`abcd`)
+	assert.Assert(t, !ok, `No error to Get() value by '%v' key after 300 msec`, `abcd`)
 }
